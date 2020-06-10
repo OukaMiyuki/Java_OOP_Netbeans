@@ -12,20 +12,17 @@ package Model;
 public class Kategori{
     private int id_kategori;
     private String nama_kategori;
-
-    public int getId_Kategori(){
-	return id_kategori;
-    }
-	
-    public void setId_Kategori(int id_kategori){
-	this.id_kategori = id_kategori;
+    
+    public void  setKategori(int id_kategori, String nama_kategori){
+        this.id_kategori = id_kategori;
+        this.nama_kategori = nama_kategori;
     }
 
-    public String getNama_Kategori(){
-	return nama_kategori;
+    public int getId_kategori() {
+        return id_kategori;
     }
 
-    public void setNama_Kategori(String nama_kategori){
-	this.nama_kategori = nama_kategori;
+    public String getNama_kategori() {
+        return nama_kategori;
     }
 }

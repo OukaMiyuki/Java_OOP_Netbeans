@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,16 +27,36 @@ public class Main_Form extends javax.swing.JFrame {
     /**
      * Creates new form View
      */
+    private String nama_produk;
+    private int Harga_Produk;
+    private int stok_produk;
     public Main_Form() {
         initComponents();
+        //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         btn_update_pegawai.setEnabled(false);
         btnDeletePegawai.setEnabled(false);
         btnUpdateKurir.setEnabled(false);
         btnDeleteKurir.setEnabled(false);
         btnUpdatePemasok.setEnabled(false);
         btnDeletePemasok.setEnabled(false);
+        btnUpdateKategori.setEnabled(false);
+        btnDeletetKategori.setEnabled(false);
+        btnDeleteProduk.setEnabled(false);
+        btnUpdateProduk.setEnabled(false);
+        TXT_produk_id_pemasok.setEditable(false);
+        TXT_produk_kategori.setEditable(false);
+        TXT_id_pegawai_transaksi.setEditable(false);
+        TXT_id_kurir_transaksi.setEditable(false);
+        TXT_produk_transaksi.setEditable(false);
+        TXT_diskon_transaksi.setEditable(false);
+        TXT_total_harga_transaksi.setEditable(false);
+        TXT_kembalian_transaksi.setEditable(false);
         JTextFieldDateEditor edTlpegawai = (JTextFieldDateEditor) txt_pegawai_tanggal_lahir.getDateEditor();
         edTlpegawai.setEditable(false);
+        JTextFieldDateEditor tgl_pemesanan = (JTextFieldDateEditor) TXT_tgl_pemesanan.getDateEditor();
+        tgl_pemesanan.setEditable(false);
+        JTextFieldDateEditor tgl_pengiriman = (JTextFieldDateEditor) TXT_tgl_pengiriman.getDateEditor();
+        tgl_pengiriman.setEditable(false);
     }
 
     /**
@@ -51,7 +72,6 @@ public class Main_Form extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -84,27 +104,6 @@ public class Main_Form extends javax.swing.JFrame {
         btnNext_Pegawai = new javax.swing.JButton();
         btnPrev_Pegawai = new javax.swing.JButton();
         btnLast_Pegawai = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        txt_id_kurir = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        txt_nama_perusahaan = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        txt_no_telp_kurir = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tbl_kurir = new javax.swing.JTable();
-        btnInsertKurir = new javax.swing.JButton();
-        btnUpdateKurir = new javax.swing.JButton();
-        btnDeleteKurir = new javax.swing.JButton();
-        btnResetKurir = new javax.swing.JButton();
-        btn_first_kurir = new javax.swing.JButton();
-        btn_prev_kurir = new javax.swing.JButton();
-        btn_next_kurir = new javax.swing.JButton();
-        btn_last_kurir = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -131,25 +130,154 @@ public class Main_Form extends javax.swing.JFrame {
         btn_prev_pemasok = new javax.swing.JButton();
         btn_next_pemasok = new javax.swing.JButton();
         btn_last_pemasok = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        txt_id_kurir = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        txt_nama_perusahaan = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        txt_no_telp_kurir = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbl_kurir = new javax.swing.JTable();
+        btnInsertKurir = new javax.swing.JButton();
+        btnUpdateKurir = new javax.swing.JButton();
+        btnDeleteKurir = new javax.swing.JButton();
+        btnResetKurir = new javax.swing.JButton();
+        btn_first_kurir = new javax.swing.JButton();
+        btn_prev_kurir = new javax.swing.JButton();
+        btn_next_kurir = new javax.swing.JButton();
+        btn_last_kurir = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel37 = new javax.swing.JLabel();
+        TXT_produk_id = new javax.swing.JTextField();
+        jLabel38 = new javax.swing.JLabel();
+        TXT_produk_id_pemasok = new javax.swing.JTextField();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        TXT_produk_kategori = new javax.swing.JTextField();
+        TXT_produk_nama = new javax.swing.JTextField();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        Btn_Choose_Pemasok = new javax.swing.JButton();
+        Btn_Chose_Kategori = new javax.swing.JButton();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        TXT_produk_harga = new javax.swing.JTextField();
+        jLabel49 = new javax.swing.JLabel();
+        TXT_produk_stok = new javax.swing.JTextField();
+        jLabel50 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        Tbl_Produk = new javax.swing.JTable();
+        btnInsertProduk = new javax.swing.JButton();
+        btnUpdateProduk = new javax.swing.JButton();
+        btnDeleteProduk = new javax.swing.JButton();
+        btnResetProduk = new javax.swing.JButton();
+        Btn_First_Produk = new javax.swing.JButton();
+        Btn_Prev_Produk = new javax.swing.JButton();
+        Btn_Next_Produk = new javax.swing.JButton();
+        Btn_Last_Produk = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        TXT_id_kategori = new javax.swing.JTextField();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        TXT_nama_kategori = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tbl_kategori = new javax.swing.JTable();
+        btnInsertKategori = new javax.swing.JButton();
+        btnUpdateKategori = new javax.swing.JButton();
+        btnDeletetKategori = new javax.swing.JButton();
+        btnResettKategori = new javax.swing.JButton();
+        btn_first_kategori = new javax.swing.JButton();
+        btn_prev_kategori = new javax.swing.JButton();
+        btn_last_kategori = new javax.swing.JButton();
+        btn_next_kategori = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        TXT_id_transaksi = new javax.swing.JTextField();
+        jLabel58 = new javax.swing.JLabel();
+        TXT_id_kurir_transaksi = new javax.swing.JTextField();
+        jLabel59 = new javax.swing.JLabel();
+        TXT_id_pelanggan_transaksi = new javax.swing.JTextField();
+        TXT_id_pegawai_transaksi = new javax.swing.JTextField();
+        TXT_nama_pelanggan_transaksi = new javax.swing.JTextField();
+        jLabel62 = new javax.swing.JLabel();
+        TXT_tgl_pemesanan = new com.toedter.calendar.JDateChooser();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel64 = new javax.swing.JLabel();
+        TXT_tgl_pengiriman = new com.toedter.calendar.JDateChooser();
+        jLabel65 = new javax.swing.JLabel();
+        TXT_kode_pos_transaksi = new javax.swing.JTextField();
+        jLabel66 = new javax.swing.JLabel();
+        TXT_telp_transaksi = new javax.swing.JTextField();
+        jLabel67 = new javax.swing.JLabel();
+        TXT_produk_transaksi = new javax.swing.JTextField();
+        jLabel68 = new javax.swing.JLabel();
+        jLabel69 = new javax.swing.JLabel();
+        TXT_banyak_beli_transaksi = new javax.swing.JTextField();
+        jLabel70 = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        btnIdPegawaiList = new javax.swing.JButton();
+        btnIdKurirList = new javax.swing.JButton();
+        btnIdProdukList = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        Tbl_transaksi = new javax.swing.JTable();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel72 = new javax.swing.JLabel();
+        TXT_diskon_transaksi = new javax.swing.JTextField();
+        TXT_total_harga_transaksi = new javax.swing.JTextField();
+        jLabel74 = new javax.swing.JLabel();
+        jLabel75 = new javax.swing.JLabel();
+        TXT_bayar_transaksi = new javax.swing.JTextField();
+        jLabel76 = new javax.swing.JLabel();
+        jLabel77 = new javax.swing.JLabel();
+        TXT_kembalian_transaksi = new javax.swing.JTextField();
+        jLabel78 = new javax.swing.JLabel();
+        jLabel79 = new javax.swing.JLabel();
+        btnBayar = new javax.swing.JButton();
+        btnCekDiskon = new javax.swing.JButton();
+        jLabel81 = new javax.swing.JLabel();
+        btnSimpanTransaksi = new javax.swing.JButton();
+        btnResetTransaksi = new javax.swing.JButton();
+        TXT_alamat_transaksi = new javax.swing.JTextField();
+        jLabel80 = new javax.swing.JLabel();
+        jLabel60 = new javax.swing.JLabel();
+        btnTambah = new javax.swing.JButton();
+        btnEditFieldTransaksi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel15.setFont(new java.awt.Font("Viner Hand ITC", 1, 70)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("KASIR");
+        jLabel15.setText("Pengiriman barang");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jLabel15)
-                .addGap(0, 23, Short.MAX_VALUE))
+                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -162,19 +290,6 @@ public class Main_Form extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1087, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 537, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Transaksi", jPanel2);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setText("ID_Pegawai");
@@ -331,7 +446,7 @@ public class Main_Form extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_reset_field_pegawai)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -342,7 +457,7 @@ public class Main_Form extends javax.swing.JFrame {
                 .addComponent(btnNext_Pegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLast_Pegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(186, 186, 186))
+                .addGap(295, 295, 295))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,182 +507,16 @@ public class Main_Form extends javax.swing.JFrame {
                             .addComponent(btnDeletePegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_reset_field_pegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFirst_Pegawai)
                     .addComponent(btnPrev_Pegawai)
                     .addComponent(btnNext_Pegawai)
                     .addComponent(btnLast_Pegawai))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Pegawai", jPanel3);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1087, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 537, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Produk", jPanel6);
-
-        jLabel17.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel17.setText("ID_Kurir");
-
-        jLabel18.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel18.setText(":");
-
-        txt_id_kurir.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-
-        jLabel19.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel19.setText("Nama Perusahaan");
-
-        jLabel20.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel20.setText(":");
-
-        txt_nama_perusahaan.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-
-        jLabel21.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel21.setText("No. Telp.");
-
-        jLabel22.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel22.setText(":");
-
-        txt_no_telp_kurir.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-
-        tbl_kurir.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "No.", "ID Kurir", "Nama Perusahaan", "No Telp."
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tbl_kurir);
-
-        btnInsertKurir.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        btnInsertKurir.setText("Insert");
-
-        btnUpdateKurir.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        btnUpdateKurir.setText("Update");
-
-        btnDeleteKurir.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        btnDeleteKurir.setText("Delete");
-
-        btnResetKurir.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        btnResetKurir.setText("Reset");
-
-        btn_first_kurir.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
-        btn_first_kurir.setText("First");
-
-        btn_prev_kurir.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
-        btn_prev_kurir.setText("Prev");
-
-        btn_next_kurir.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
-        btn_next_kurir.setText("Next");
-
-        btn_last_kurir.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
-        btn_last_kurir.setText("Last");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel21))
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel22)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_no_telp_kurir))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_id_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel20)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_nama_perusahaan, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(btnInsertKurir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnUpdateKurir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDeleteKurir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnResetKurir)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_first_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_prev_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_next_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_last_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(149, 149, 149))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel18)
-                            .addComponent(txt_id_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_nama_perusahaan, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel20))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21)
-                            .addComponent(txt_no_telp_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel22))
-                        .addGap(77, 77, 77)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnInsertKurir)
-                            .addComponent(btnUpdateKurir)
-                            .addComponent(btnDeleteKurir)
-                            .addComponent(btnResetKurir)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_first_kurir)
-                    .addComponent(btn_prev_kurir)
-                    .addComponent(btn_next_kurir)
-                    .addComponent(btn_last_kurir))
-                .addContainerGap(95, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Kurir", jPanel7);
 
         jLabel23.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel23.setText("ID_Pemasok");
@@ -697,7 +646,7 @@ public class Main_Form extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnResetPemasok)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 967, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -708,7 +657,7 @@ public class Main_Form extends javax.swing.JFrame {
                 .addComponent(btn_next_pemasok, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_last_pemasok, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(159, 159, 159))
+                .addGap(293, 293, 293))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -717,16 +666,16 @@ public class Main_Form extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel24)
-                                .addComponent(TXT_id_pemasok, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel26)
+                            .addComponent(jLabel24)
+                            .addComponent(TXT_id_pemasok, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel23))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel25)
-                            .addComponent(TXT_nama_perusahaan_pemasok, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel26)
+                                .addComponent(TXT_nama_perusahaan_pemasok, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel28)
@@ -748,47 +697,1043 @@ public class Main_Form extends javax.swing.JFrame {
                             .addComponent(btnUpdatePemasok)
                             .addComponent(btnDeletePemasok)
                             .addComponent(btnResetPemasok))))
-                .addGap(30, 30, 30)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_first_pemasok)
                     .addComponent(btn_prev_pemasok)
                     .addComponent(btn_next_pemasok)
                     .addComponent(btn_last_pemasok))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Pemasok", jPanel4);
+
+        jLabel17.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel17.setText("ID_Kurir");
+
+        jLabel18.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel18.setText(":");
+
+        txt_id_kurir.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel19.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel19.setText("Nama Perusahaan");
+
+        jLabel20.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel20.setText(":");
+
+        txt_nama_perusahaan.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel21.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel21.setText("No. Telp.");
+
+        jLabel22.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel22.setText(":");
+
+        txt_no_telp_kurir.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        tbl_kurir.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "No.", "ID Kurir", "Nama Perusahaan", "No Telp."
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tbl_kurir);
+
+        btnInsertKurir.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnInsertKurir.setText("Insert");
+
+        btnUpdateKurir.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnUpdateKurir.setText("Update");
+
+        btnDeleteKurir.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnDeleteKurir.setText("Delete");
+
+        btnResetKurir.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnResetKurir.setText("Reset");
+
+        btn_first_kurir.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        btn_first_kurir.setText("First");
+
+        btn_prev_kurir.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        btn_prev_kurir.setText("Prev");
+
+        btn_next_kurir.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        btn_next_kurir.setText("Next");
+
+        btn_last_kurir.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        btn_last_kurir.setText("Last");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel21))
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel22)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_no_telp_kurir))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_id_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_nama_perusahaan, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(btnInsertKurir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUpdateKurir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDeleteKurir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnResetKurir)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_first_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_prev_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_next_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_last_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(275, 275, 275))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel18)
+                            .addComponent(txt_id_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_nama_perusahaan, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel20))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel21)
+                            .addComponent(txt_no_telp_kurir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22))
+                        .addGap(77, 77, 77)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnInsertKurir)
+                            .addComponent(btnUpdateKurir)
+                            .addComponent(btnDeleteKurir)
+                            .addComponent(btnResetKurir)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_first_kurir)
+                    .addComponent(btn_prev_kurir)
+                    .addComponent(btn_next_kurir)
+                    .addComponent(btn_last_kurir))
+                .addContainerGap(105, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Kurir", jPanel7);
+
+        jLabel37.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel37.setText("ID_Produk");
+
+        TXT_produk_id.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel38.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel38.setText(":");
+
+        TXT_produk_id_pemasok.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel39.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel39.setText(":");
+
+        jLabel40.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel40.setText("ID_Pemasok");
+
+        jLabel41.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel41.setText("ID_Kategori");
+
+        jLabel42.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel42.setText(":");
+
+        TXT_produk_kategori.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        TXT_produk_nama.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel43.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel43.setText(":");
+
+        jLabel44.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel44.setText("Nama Produk");
+
+        Btn_Choose_Pemasok.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        Btn_Choose_Pemasok.setText("Pilih");
+
+        Btn_Chose_Kategori.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        Btn_Chose_Kategori.setText("Pilih");
+
+        jLabel45.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel45.setText("Harga Satuan");
+
+        jLabel46.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel46.setText(":");
+
+        TXT_produk_harga.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel49.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel49.setText("Stok Produk");
+
+        TXT_produk_stok.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel50.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel50.setText(":");
+
+        Tbl_Produk.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "No.", "ID Produk", "ID Pemasok", "ID Kategori", "Nama Produk", "Harga Satuan", "Stok Produk"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(Tbl_Produk);
+
+        btnInsertProduk.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnInsertProduk.setText("Insert");
+
+        btnUpdateProduk.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnUpdateProduk.setText("Update");
+
+        btnDeleteProduk.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnDeleteProduk.setText("Delete");
+
+        btnResetProduk.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnResetProduk.setText("Reset");
+
+        Btn_First_Produk.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        Btn_First_Produk.setText("First");
+
+        Btn_Prev_Produk.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        Btn_Prev_Produk.setText("Prev");
+
+        Btn_Next_Produk.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        Btn_Next_Produk.setText("Next");
+
+        Btn_Last_Produk.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        Btn_Last_Produk.setText("Last");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel37)
+                            .addComponent(jLabel40)
+                            .addComponent(jLabel41)
+                            .addComponent(jLabel44)
+                            .addComponent(jLabel45)
+                            .addComponent(jLabel49))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel50)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel38)
+                                    .addComponent(jLabel42)
+                                    .addComponent(jLabel39)
+                                    .addComponent(jLabel46)
+                                    .addComponent(jLabel43))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(TXT_produk_stok)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(TXT_produk_id, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TXT_produk_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TXT_produk_id_pemasok, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Btn_Choose_Pemasok)
+                                    .addComponent(Btn_Chose_Kategori)))
+                            .addComponent(TXT_produk_harga)
+                            .addComponent(TXT_produk_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(btnInsertProduk)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUpdateProduk)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDeleteProduk)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnResetProduk)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 992, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Btn_First_Produk, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Btn_Prev_Produk, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Btn_Next_Produk, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Btn_Last_Produk, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(284, 284, 284))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel37)
+                            .addComponent(jLabel38)
+                            .addComponent(TXT_produk_id, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel40)
+                            .addComponent(jLabel39)
+                            .addComponent(TXT_produk_id_pemasok, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Btn_Choose_Pemasok, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXT_produk_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel41)
+                            .addComponent(jLabel42)
+                            .addComponent(Btn_Chose_Kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXT_produk_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel44)
+                            .addComponent(jLabel43))
+                        .addGap(7, 7, 7)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXT_produk_harga, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel46)
+                            .addComponent(jLabel45))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXT_produk_stok, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel50)
+                            .addComponent(jLabel49))
+                        .addGap(85, 85, 85)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnInsertProduk)
+                            .addComponent(btnUpdateProduk)
+                            .addComponent(btnDeleteProduk)
+                            .addComponent(btnResetProduk)))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Btn_First_Produk)
+                    .addComponent(Btn_Prev_Produk)
+                    .addComponent(Btn_Next_Produk)
+                    .addComponent(Btn_Last_Produk))
+                .addContainerGap(70, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Produk", jPanel6);
+
+        jLabel33.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel33.setText("ID_Kategori");
+
+        jLabel34.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel34.setText(":");
+
+        TXT_id_kategori.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel35.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel35.setText("Nama Kategori");
+
+        jLabel36.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel36.setText(":");
+
+        TXT_nama_kategori.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        tbl_kategori.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "No.", "ID Kategori", "Nama kategori"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tbl_kategori);
+
+        btnInsertKategori.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnInsertKategori.setText("Insert");
+
+        btnUpdateKategori.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnUpdateKategori.setText("Update");
+
+        btnDeletetKategori.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnDeletetKategori.setText("Delete");
+
+        btnResettKategori.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnResettKategori.setText("Reset");
+
+        btn_first_kategori.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        btn_first_kategori.setText("First");
+
+        btn_prev_kategori.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        btn_prev_kategori.setText("Prev");
+
+        btn_last_kategori.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        btn_last_kategori.setText("Last");
+
+        btn_next_kategori.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        btn_next_kategori.setText("Next");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel33)
+                            .addComponent(jLabel35))
+                        .addGap(68, 68, 68)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel34)
+                                .addGap(18, 18, 18)
+                                .addComponent(TXT_id_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel36)
+                                .addGap(18, 18, 18)
+                                .addComponent(TXT_nama_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(btnInsertKategori)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUpdateKategori)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDeletetKategori)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnResettKategori)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_first_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_prev_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_next_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_last_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(281, 281, 281))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel33)
+                            .addComponent(jLabel34)
+                            .addComponent(TXT_id_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXT_nama_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel36)
+                            .addComponent(jLabel35))
+                        .addGap(98, 98, 98)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnInsertKategori)
+                            .addComponent(btnUpdateKategori)
+                            .addComponent(btnDeletetKategori)
+                            .addComponent(btnResettKategori)))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_first_kategori)
+                    .addComponent(btn_prev_kategori)
+                    .addComponent(btn_next_kategori)
+                    .addComponent(btn_last_kategori))
+                .addContainerGap(110, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Kategori", jPanel9);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1087, Short.MAX_VALUE)
+            .addGap(0, 1348, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 537, Short.MAX_VALUE)
+            .addGap(0, 568, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Record Penjualan", jPanel5);
+
+        jLabel16.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel16.setText("ID_Transaksi");
+
+        jLabel47.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel47.setText("Nama Pelanggan");
+
+        jLabel48.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel48.setText("ID_Pelanggan");
+
+        jLabel51.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel51.setText("ID_Kurir");
+
+        jLabel52.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel52.setText("ID_Pegawai");
+
+        jLabel54.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel54.setText("Tanggal Pemesanan");
+
+        jLabel55.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel55.setText("Tanggal Pengiriman");
+
+        jLabel56.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel56.setText("Kode Pos");
+
+        jLabel57.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel57.setText(":");
+
+        TXT_id_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel58.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel58.setText(":");
+
+        TXT_id_kurir_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel59.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel59.setText(":");
+
+        TXT_id_pelanggan_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        TXT_id_pegawai_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        TXT_nama_pelanggan_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel62.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel62.setText(":");
+
+        TXT_tgl_pemesanan.setDateFormatString("dd-MM-yyyy");
+
+        jLabel63.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel63.setText(":");
+
+        jLabel53.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel53.setText(":");
+
+        jLabel64.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel64.setText(":");
+
+        TXT_tgl_pengiriman.setDateFormatString("dd-MM-yyyy");
+
+        jLabel65.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel65.setText(":");
+
+        TXT_kode_pos_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel66.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel66.setText(":");
+
+        TXT_telp_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel67.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel67.setText("No. Telp.");
+
+        TXT_produk_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel68.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel68.setText(":");
+
+        jLabel69.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel69.setText("Produk");
+
+        TXT_banyak_beli_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel70.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel70.setText(":");
+
+        jLabel71.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel71.setText("Banyak Beli");
+
+        btnIdPegawaiList.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnIdPegawaiList.setText("Pilih");
+
+        btnIdKurirList.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnIdKurirList.setText("Pilih");
+
+        btnIdProdukList.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnIdProdukList.setText("Pilih");
+        btnIdProdukList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIdProdukListActionPerformed(evt);
+            }
+        });
+
+        Tbl_transaksi.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Transaksi", "ID Produk", "Nama Produk", "Harga Satuan", "Banyak Beli", "Total", "Sisa Gudang"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(Tbl_transaksi);
+
+        jLabel72.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel72.setText("Diskon");
+
+        TXT_diskon_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        TXT_total_harga_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel74.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel74.setText(":");
+
+        jLabel75.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel75.setText("Total Harga");
+
+        TXT_bayar_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel76.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel76.setText(":");
+
+        jLabel77.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel77.setText("Bayar");
+
+        TXT_kembalian_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        TXT_kembalian_transaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXT_kembalian_transaksiActionPerformed(evt);
+            }
+        });
+
+        jLabel78.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel78.setText(":");
+
+        jLabel79.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel79.setText("Kembalian");
+
+        btnBayar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnBayar.setText("Bayar");
+        btnBayar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBayarActionPerformed(evt);
+            }
+        });
+
+        btnCekDiskon.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnCekDiskon.setText("Cek");
+        btnCekDiskon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCekDiskonActionPerformed(evt);
+            }
+        });
+
+        jLabel81.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel81.setText(":");
+
+        btnSimpanTransaksi.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnSimpanTransaksi.setText("Simpan");
+        btnSimpanTransaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanTransaksiActionPerformed(evt);
+            }
+        });
+
+        btnResetTransaksi.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnResetTransaksi.setText("Reset");
+        btnResetTransaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetTransaksiActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel79)
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel78)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TXT_kembalian_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(628, Short.MAX_VALUE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel10Layout.createSequentialGroup()
+                                    .addComponent(jLabel77)
+                                    .addGap(75, 75, 75)
+                                    .addComponent(jLabel76)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(TXT_bayar_transaksi))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
+                                    .addComponent(jLabel75)
+                                    .addGap(30, 30, 30)
+                                    .addComponent(jLabel74)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(TXT_total_harga_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jLabel72)
+                                .addGap(68, 68, 68)
+                                .addComponent(jLabel81)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TXT_diskon_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCekDiskon)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSimpanTransaksi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnResetTransaksi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel72)
+                    .addComponent(TXT_diskon_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCekDiskon, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel81)
+                    .addComponent(btnSimpanTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel75)
+                    .addComponent(jLabel74)
+                    .addComponent(TXT_total_harga_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnResetTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel77)
+                    .addComponent(jLabel76)
+                    .addComponent(TXT_bayar_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TXT_kembalian_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel78)
+                    .addComponent(jLabel79))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        TXT_alamat_transaksi.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        jLabel80.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel80.setText(":");
+
+        jLabel60.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel60.setText("Alamat Pengiriman");
+
+        btnTambah.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnTambah.setText("Tambah");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
+
+        btnEditFieldTransaksi.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnEditFieldTransaksi.setText("Edit");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel69)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel68))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel71)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel70)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TXT_produk_transaksi)
+                            .addComponent(TXT_banyak_beli_transaksi))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnIdProdukList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnTambah, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel67)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel57))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel54)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel64))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel51)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel53))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel52)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel63))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel47)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel62))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel58))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel48)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel59))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel55)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel65))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel56)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel66))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel60)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel80)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(TXT_id_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEditFieldTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(TXT_id_pelanggan_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TXT_nama_pelanggan_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(TXT_id_pegawai_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnIdPegawaiList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(TXT_tgl_pengiriman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TXT_tgl_pemesanan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(TXT_id_kurir_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnIdKurirList))
+                            .addComponent(TXT_kode_pos_transaksi)
+                            .addComponent(TXT_telp_transaksi)
+                            .addComponent(TXT_alamat_transaksi))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE)
+                        .addGap(19, 19, 19))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(TXT_id_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel58)
+                                    .addComponent(btnEditFieldTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(5, 5, 5)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(TXT_id_pelanggan_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel59)
+                                    .addComponent(jLabel48))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(TXT_nama_pelanggan_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel62)
+                                    .addComponent(jLabel47))))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnIdPegawaiList, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(TXT_id_pegawai_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel63)
+                                .addComponent(jLabel52)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnIdKurirList, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(TXT_id_kurir_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel53)
+                                .addComponent(jLabel51)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TXT_tgl_pemesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel64)
+                                .addComponent(jLabel54)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TXT_tgl_pengiriman, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel65)
+                                .addComponent(jLabel55))))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXT_alamat_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel80)
+                            .addComponent(jLabel60))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXT_kode_pos_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel66)
+                            .addComponent(jLabel56))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXT_telp_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel57)
+                            .addComponent(jLabel67))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXT_produk_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel68)
+                            .addComponent(jLabel69)
+                            .addComponent(btnIdProdukList, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXT_banyak_beli_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel71)
+                            .addComponent(jLabel70)
+                            .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(54, 54, 54))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+
+        jTabbedPane1.addTab("Transaksi", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIdProdukListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIdProdukListActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIdProdukListActionPerformed
+
+    private void TXT_kembalian_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXT_kembalian_transaksiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXT_kembalian_transaksiActionPerformed
+
+    private void btnBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBayarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBayarActionPerformed
+
+    private void btnCekDiskonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCekDiskonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCekDiskonActionPerformed
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void btnSimpanTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanTransaksiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSimpanTransaksiActionPerformed
+
+    private void btnResetTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetTransaksiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnResetTransaksiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1003,32 +1948,312 @@ public class Main_Form extends javax.swing.JFrame {
         return TXT_no_telp_pemasok;
     }
     
+    //kategori components
+    
+    public JTable getTbl_Kategori(){
+        return tbl_kategori;
+    }
+    
+    public JTextField getTXT_kategori_id(){
+        return TXT_id_kategori;
+    }
+    
+    public JTextField getTXT_nama_kategori(){
+        return TXT_nama_kategori;
+    }
+    
+    public JButton getBtn_Insert_kategori(){
+        return btnInsertKategori;
+    }
+    
+    public JButton getBtn_Update_kategori(){
+        return btnUpdateKategori;
+    }
+    
+    public JButton getBtn_Delete_kategori(){
+        return btnDeletetKategori;
+    }
+    
+    public JButton getBtn_Reset_kategori(){
+        return btnResettKategori;
+    }
+    
+    public JButton getBtn_First_kategori(){
+        return btn_first_kategori;
+    }
+    
+    public JButton getBtn_Last_kategori(){
+        return btn_last_kategori;
+    }
+    
+    public JButton getBtn_Next_kategori(){
+        return btn_next_kategori;
+    }
+    
+    public JButton getBtn_Prev_kategori(){
+        return btn_prev_kategori;
+    }
+
+    
+    //produk componets
+    
+    public JButton getBtn_Choose_Pemasok_produk(){
+        return Btn_Choose_Pemasok;
+    }
+    
+    public JButton getBtn_Choose_kategori_Produk(){
+        return Btn_Chose_Kategori;
+    }
+    
+    public JButton getBtn_insert_produk(){
+        return btnInsertProduk;
+    }
+    
+    public JButton getBtn_update_produk(){
+        return btnUpdateProduk;
+    }
+    
+    public JButton getBtn_delete_produk(){
+        return btnDeleteProduk;
+    }
+    
+    public JButton getBtn_reset_produk(){
+        return btnResetProduk;
+    }
+    
+    public JButton getBtn_first_produk(){
+        return Btn_First_Produk;
+    }
+    
+    public JButton getBtn_last_produk(){
+        return Btn_Last_Produk;
+    }
+    
+    public JButton getBtn_prev_produk(){
+        return Btn_Prev_Produk;
+    }
+    
+    public JButton getBtn_next_produk(){
+        return Btn_Next_Produk;
+    }
+    
+    public JTable getTbl_produk(){
+        return Tbl_Produk;
+    }
+    
+    public JTextField getTXT_pilih_pemasok(){
+        return TXT_produk_id_pemasok;
+    }
+    
+    public JTextField getTXT_pilih_kategori(){
+        return TXT_produk_kategori;
+    }
+    
+    public JTextField getTXT_produk_id(){
+        return TXT_produk_id;
+    }
+    
+    public JTextField getTXT_nama_produk(){
+        return TXT_produk_nama;
+    }
+    
+    public JTextField getTXT_harga_produk(){
+        return TXT_produk_harga;
+    }
+    
+    public JTextField getTXT_stok_produk(){
+        return TXT_produk_stok;
+    }
+    
+    //transaksi components
+    
+    public void setStok(int stok){
+        this.stok_produk = stok;
+    }
+    
+    public int getStok(){
+        return stok_produk;
+    }
+    
+    public void setHarga(int Harga){
+        this.Harga_Produk = Harga;
+    }
+    
+    public void setNamaProduk(String Nama_Produk){
+        this.nama_produk = Nama_Produk;
+    }
+    
+    public int getHarga(){
+        return this.Harga_Produk;
+    }
+    
+    public String getNama_Produk(){
+        return this.nama_produk;
+    }
+    
+    public JButton getBtnChoosePegawai(){
+        return btnIdPegawaiList;
+    }
+    
+    public JButton getBtnChooseKurir(){
+        return btnIdKurirList;
+    }
+    
+    public JButton geBtnChooseProduk(){
+        return btnIdProdukList;
+    }
+    
+    public JButton getBtnTambah(){
+        return btnTambah;
+    }
+    
+    public JButton getCekDiskon(){
+        return btnCekDiskon;
+    }
+    
+    public JTable getTb_Transaksi(){
+        return Tbl_transaksi;
+    }
+    
+    public JButton getBtnEditTransaksiField(){
+        return btnEditFieldTransaksi;
+    }
+    
+    public JTextField getTXT_id_transaksi(){
+        return TXT_id_transaksi;
+    }
+    
+    public JTextField getTXT_id_pelanggan(){
+        return TXT_id_pelanggan_transaksi;
+    }
+    
+    public JTextField getNama_pelanggan(){
+        return TXT_nama_pelanggan_transaksi;
+    }
+    
+    public JTextField getTXT_id_pegawai_transaksi(){
+        return TXT_id_pegawai_transaksi;
+    }
+    
+    public JTextField getTXT_id_kurir_transaksi(){
+        return TXT_id_kurir_transaksi;
+    }
+    
+    public String getTXT_tgl_pemesanan(){
+        SimpleDateFormat tanggal_pemesanan = new SimpleDateFormat("dd-MM-yyyy");
+        String pemesanan = tanggal_pemesanan.format(TXT_tgl_pemesanan.getDate());
+        return pemesanan;
+    }
+    
+    public String getTXT_tgl_pengiriman(){
+        SimpleDateFormat tanggal_pengiriman = new SimpleDateFormat("dd-MM-yyyy");
+        String pengirirman = tanggal_pengiriman.format(TXT_tgl_pengiriman.getDate());
+        return pengirirman;
+    }
+    
+    public JTextField getTXTAlamat_transaksi(){
+        return TXT_alamat_transaksi;
+    }
+    
+    public JTextField getTXTKode_Pos_transaksi(){
+        return TXT_kode_pos_transaksi; 
+    }
+    
+    public JTextField getTXTNo_telp_transaksi(){
+        return TXT_telp_transaksi;
+    }
+    
+    public JTextField getProduk_Transaksi(){
+        return TXT_produk_transaksi;
+    }
+    
+    public JTextField getBanyak_Beli_transaksi(){
+        return TXT_banyak_beli_transaksi;
+    }
+    
+    public JTextField getHargaTotalTransaksi(){
+        return TXT_total_harga_transaksi;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Btn_Choose_Pemasok;
+    private javax.swing.JButton Btn_Chose_Kategori;
+    private javax.swing.JButton Btn_First_Produk;
+    private javax.swing.JButton Btn_Last_Produk;
+    private javax.swing.JButton Btn_Next_Produk;
+    private javax.swing.JButton Btn_Prev_Produk;
     private javax.swing.JTextField TXT_alamat_pemasok;
+    private javax.swing.JTextField TXT_alamat_transaksi;
+    private javax.swing.JTextField TXT_banyak_beli_transaksi;
+    private javax.swing.JTextField TXT_bayar_transaksi;
+    private javax.swing.JTextField TXT_diskon_transaksi;
+    private javax.swing.JTextField TXT_id_kategori;
+    private javax.swing.JTextField TXT_id_kurir_transaksi;
+    private javax.swing.JTextField TXT_id_pegawai_transaksi;
+    private javax.swing.JTextField TXT_id_pelanggan_transaksi;
     private javax.swing.JTextField TXT_id_pemasok;
+    private javax.swing.JTextField TXT_id_transaksi;
+    private javax.swing.JTextField TXT_kembalian_transaksi;
     private javax.swing.JTextField TXT_kode_pos_pemasok;
+    private javax.swing.JTextField TXT_kode_pos_transaksi;
+    private javax.swing.JTextField TXT_nama_kategori;
+    private javax.swing.JTextField TXT_nama_pelanggan_transaksi;
     private javax.swing.JTextField TXT_nama_perusahaan_pemasok;
     private javax.swing.JTextField TXT_no_telp_pemasok;
+    private javax.swing.JTextField TXT_produk_harga;
+    private javax.swing.JTextField TXT_produk_id;
+    private javax.swing.JTextField TXT_produk_id_pemasok;
+    private javax.swing.JTextField TXT_produk_kategori;
+    private javax.swing.JTextField TXT_produk_nama;
+    private javax.swing.JTextField TXT_produk_stok;
+    private javax.swing.JTextField TXT_produk_transaksi;
+    private javax.swing.JTextField TXT_telp_transaksi;
+    private com.toedter.calendar.JDateChooser TXT_tgl_pemesanan;
+    private com.toedter.calendar.JDateChooser TXT_tgl_pengiriman;
+    private javax.swing.JTextField TXT_total_harga_transaksi;
+    private javax.swing.JTable Tbl_Produk;
+    private javax.swing.JTable Tbl_transaksi;
+    private javax.swing.JButton btnBayar;
+    private javax.swing.JButton btnCekDiskon;
     private javax.swing.JButton btnDeleteKurir;
     private javax.swing.JButton btnDeletePegawai;
     private javax.swing.JButton btnDeletePemasok;
+    private javax.swing.JButton btnDeleteProduk;
+    private javax.swing.JButton btnDeletetKategori;
+    private javax.swing.JButton btnEditFieldTransaksi;
     private javax.swing.JButton btnFirst_Pegawai;
+    private javax.swing.JButton btnIdKurirList;
+    private javax.swing.JButton btnIdPegawaiList;
+    private javax.swing.JButton btnIdProdukList;
+    private javax.swing.JButton btnInsertKategori;
     private javax.swing.JButton btnInsertKurir;
     private javax.swing.JButton btnInsertPemasok;
+    private javax.swing.JButton btnInsertProduk;
     private javax.swing.JButton btnLast_Pegawai;
     private javax.swing.JButton btnNext_Pegawai;
     private javax.swing.JButton btnPrev_Pegawai;
     private javax.swing.JButton btnResetKurir;
     private javax.swing.JButton btnResetPemasok;
+    private javax.swing.JButton btnResetProduk;
+    private javax.swing.JButton btnResetTransaksi;
+    private javax.swing.JButton btnResettKategori;
+    private javax.swing.JButton btnSimpanTransaksi;
+    private javax.swing.JButton btnTambah;
+    private javax.swing.JButton btnUpdateKategori;
     private javax.swing.JButton btnUpdateKurir;
     private javax.swing.JButton btnUpdatePemasok;
+    private javax.swing.JButton btnUpdateProduk;
+    private javax.swing.JButton btn_first_kategori;
     private javax.swing.JButton btn_first_kurir;
     private javax.swing.JButton btn_first_pemasok;
     private javax.swing.JButton btn_insert_pegawai;
+    private javax.swing.JButton btn_last_kategori;
     private javax.swing.JButton btn_last_kurir;
     private javax.swing.JButton btn_last_pemasok;
+    private javax.swing.JButton btn_next_kategori;
     private javax.swing.JButton btn_next_kurir;
     private javax.swing.JButton btn_next_pemasok;
+    private javax.swing.JButton btn_prev_kategori;
     private javax.swing.JButton btn_prev_kurir;
     private javax.swing.JButton btn_prev_pemasok;
     private javax.swing.JButton btn_reset_field_pegawai;
@@ -1040,6 +2265,7 @@ public class Main_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1058,13 +2284,61 @@ public class Main_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel76;
+    private javax.swing.JLabel jLabel77;
+    private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1072,12 +2346,17 @@ public class Main_Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tb_pemasok;
     private javax.swing.JTable tb_view_pegawai;
+    private javax.swing.JTable tbl_kategori;
     private javax.swing.JTable tbl_kurir;
     private javax.swing.JTextField txt_alamat_pegawai;
     private javax.swing.JTextField txt_id_kurir;

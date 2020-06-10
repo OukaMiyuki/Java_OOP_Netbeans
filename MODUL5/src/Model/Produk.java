@@ -11,57 +11,42 @@ package Model;
  */
 public class Produk{
     private int id_produk;
-    private Pemasok pemasok;
-    private Kategori kategori;
+    private int id_pemasok;
+    private int id_kategori;
     private String nama_produk;
     private int harga_satuan;
     private int stok_produk;
 
-    public int getId_Produk(){
-	return id_produk;
+    public void setProduk(int id_produk, int id_pemasok, int id_kategori, String nama_produk, int harga_satuan, int stok_produk){
+        this.id_produk = id_produk;
+        this.id_pemasok = id_pemasok;
+        this.id_kategori = id_kategori;
+        this.nama_produk = nama_produk;
+        this.harga_satuan = harga_satuan;
+        this.stok_produk = stok_produk;
     }
 
-    public void setId_Produk(int id_produk){
-	this.id_produk = id_produk;
+    public int getId_produk() {
+        return id_produk;
     }
 
-    public Pemasok getPemasok(){
-	return pemasok;
+    public int getId_pemasok() {
+        return id_pemasok;
     }
 
-    private void setPemasok(Pemasok pemasok){
-	this.pemasok = pemasok;	
+    public int getId_kategori() {
+        return id_kategori;
     }
 
-    public Kategori getKategori(){
-	return kategori;
+    public String getNama_produk() {
+        return nama_produk;
     }
 
-    public void setKategori(Kategori kategori){
-	this.kategori = kategori;
+    public int getHarga_satuan() {
+        return harga_satuan;
     }
 
-    public String getNama_Produk(){
-	return this.nama_produk;
-    }
-
-    public void setNama_Produk(String nama_produk){
-	this.nama_produk = nama_produk;
-    }
-
-    public int getHarga_Satuan(){
-	return harga_satuan;
-    }
-
-    public void setHarga_Satuan(){
-	this.harga_satuan = harga_satuan;
-    }
-
-    public int getStok_Produk(){
-	return stok_produk;
-    }
-
-    public void setStok_Produk(int stok_produk){
-	this.stok_produk = stok_produk;
+    public int getStok_produk() {
+        return stok_produk;
     }
 }

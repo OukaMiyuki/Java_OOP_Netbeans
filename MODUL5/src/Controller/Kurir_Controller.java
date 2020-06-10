@@ -7,6 +7,7 @@ package Controller;
 
 import Database.Koneksi;
 import Model.Kurir;
+import View.Choose_Kurir;
 import View.Main_Form;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,20 +26,26 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Kurir_Controller {
     private Main_Form frame;
+    Choose_Kurir pilih_kurir = new Choose_Kurir();
     private Kurir kurir;
     private DefaultTableModel tbl_kurir;
+    private DefaultTableModel tbl_kurir_list;
     private Koneksi conn = new Koneksi();
     public static int pos = 0;
     
-    public Kurir_Controller(Main_Form frame, Kurir kurir){
+    public Kurir_Controller(Main_Form frame, Kurir kurir, Choose_Kurir pilih_kuri){
         this.frame = frame;
         this.kurir = kurir;
+        this.pilih_kurir = pilih_kuri;
         this.tbl_kurir = (DefaultTableModel) this.frame.getTblKurir().getModel();
+        this.tbl_kurir_list = (DefaultTableModel) this.pilih_kurir.getTbl_kurir_list().getModel();
         show_data_to_table();
         this.frame.getBtnInsertKurir().addActionListener(new ManagementData());
         this.frame.getBtnUpdateKurir().addActionListener(new ManagementData());
         this.frame.getBtnDeleteKurir().addActionListener(new ManagementData());
         this.frame.getBtnResetButtonKurir().addActionListener(new ManagementData());
+        
+        this.frame.getBtnChooseKurir().addActionListener(new ControlData());
         
         this.frame.getFirst_kurir().addActionListener(new ControlData());
         this.frame.getLast_kurir().addActionListener(new ControlData());
@@ -48,6 +55,12 @@ public class Kurir_Controller {
         this.frame.getTblKurir().addMouseListener(new java.awt.event.MouseAdapter(){
             public void mouseClicked(java.awt.event.MouseEvent evt){
                 tb_kurir_clicked(evt);
+            }
+        });
+        
+        this.pilih_kurir.getTbl_kurir_list().addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                tb_kurir_list_clicked(evt);
             }
         });
     }
@@ -65,6 +78,12 @@ public class Kurir_Controller {
         this.frame.getTXTId_Kurir().setText(this.frame.getTblKurir().getValueAt(index, 1).toString());
         this.frame.getTXTNama_Perusahaan().setText(this.frame.getTblKurir().getValueAt(index, 2).toString());
         this.frame.getTXTNo_Telp_Kurir().setText(this.frame.getTblKurir().getValueAt(index, 3).toString());
+    }
+    
+    public void tb_kurir_list_clicked(java.awt.event.MouseEvent evt){
+        int index = this.pilih_kurir.getTbl_kurir_list().getSelectedRow();
+        this.frame.getTXT_id_kurir_transaksi().setText(pilih_kurir.getTbl_kurir_list().getValueAt(index, 1).toString());
+        this.pilih_kurir.dispose();
     }
     
     public ArrayList<Kurir> getItemKuririnDatabase(){
@@ -92,7 +111,9 @@ public class Kurir_Controller {
     public void show_data_to_table(){
         ArrayList<Kurir> kurArr = getItemKuririnDatabase();
         tbl_kurir.setRowCount(0);
+        tbl_kurir_list.setRowCount(0);
         Object[] kolom = new Object[4];
+        Object[] kol = new Object[3];
         for (int i = 0; i < kurArr.size(); i++) {
             kolom[0] = i+1;
             kolom[1] = kurArr.get(i).getId_kurir();
@@ -100,7 +121,15 @@ public class Kurir_Controller {
             kolom[3] = kurArr.get(i).getNo_telp();
              
             tbl_kurir.addRow(kolom);
-         }
+        }
+        
+        for(int a=0; a<kurArr.size(); a++){
+            kol[0] = a+1;
+            kol[1] = kurArr.get(a).getId_kurir();
+            kol[2] = kurArr.get(a).getNama_perusahaan();
+            
+            tbl_kurir_list.addRow(kol);
+        }
     }
     
     public void insert_data_kurir(){
@@ -173,9 +202,15 @@ public class Kurir_Controller {
                     clear_forms();
                 }
             } else if(benda == frame.getBtnDeleteKurir()){
-                delete_data_kurir();
-                show_data_to_table();
-                clear_forms();
+                int result = JOptionPane.showConfirmDialog(null, 
+                    "Delete data??",null, JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.YES_OPTION) {
+                    delete_data_kurir();
+                    show_data_to_table();
+                    clear_forms();
+                } else{
+                    System.out.println("Abort!");
+                }
             } else if(benda == frame.getBtnResetButtonKurir()){
                 clear_forms();
                 show_data_to_table();
@@ -236,6 +271,10 @@ public class Kurir_Controller {
                 frame.getBtnUpdateKurir().setEnabled(true);
                 frame.getBtnDeleteKurir().setEnabled(true);
                 frame.getBtnInsertKurir().setEnabled(false);
+            } else if(benda == frame.getBtnChooseKurir()){
+                show_data_to_table();
+                pilih_kurir.setLocationRelativeTo(null);
+                pilih_kurir.setVisible(true);
             }
         }
     

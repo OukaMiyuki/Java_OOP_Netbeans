@@ -8,6 +8,7 @@ package Controller;
 import Database.Koneksi;
 import java.sql.Connection;
 import Model.Pegawai;
+import View.Choose_Pegawai;
 import View.Main_Form;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,25 +31,39 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Pegawai_Controller {
     private DefaultTableModel tbl_pegawai;
+    private DefaultTableModel tbl_pegawai_choose;
     private Koneksi conn = new Koneksi();
     private Main_Form frame;
     private Pegawai pegawai;
+    private Choose_Pegawai pilih_pegawai;
     public static int pos = 0;
     
-    public Pegawai_Controller(Main_Form frame, Pegawai pegawai){
+    public Pegawai_Controller(Main_Form frame, Pegawai pegawai, Choose_Pegawai pilih_pegawai){
         this.frame = frame;
         this.pegawai = pegawai;
+        this.pilih_pegawai = pilih_pegawai;
         this.tbl_pegawai = (DefaultTableModel) this.frame.getTblViewPegawai().getModel();
+        this.tbl_pegawai_choose = (DefaultTableModel) this.pilih_pegawai.getListPegawai().getModel();
         show_data_to_table();
+        
         this.frame.getTblViewPegawai().addMouseListener(new java.awt.event.MouseAdapter(){
             public void mouseClicked(java.awt.event.MouseEvent evt){
                 tb_pegawai_clicked(evt);
             }
         });
+        
+        this.pilih_pegawai.getListPegawai().addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                tb_pegawai_list_clicked(evt);
+            }
+        });
+        
         this.frame.getInsertButton_Pegawai().addActionListener(new ManagementData());
         this.frame.getUpdateButton_Pegawai().addActionListener(new ManagementData());
         this.frame.getResetFieldPegawai().addActionListener(new ManagementData());
         this.frame.getBtnDeletePegawai().addActionListener(new ManagementData());
+        
+        this.frame.getBtnChoosePegawai().addActionListener(new ControlData());
         
         this.frame.getFirstControl_Pegawai().addActionListener(new ControlData());
         this.frame.getNextControl_Pegawai().addActionListener(new ControlData());
@@ -63,6 +78,12 @@ public class Pegawai_Controller {
         this.frame.getInsertButton_Pegawai().setEnabled(false);
         int index = this.frame.getTblViewPegawai().getSelectedRow();
         show_item_in_form(index);
+    }
+    
+    public void tb_pegawai_list_clicked(java.awt.event.MouseEvent evt){
+        int index = this.pilih_pegawai.getListPegawai().getSelectedRow();
+        this.frame.getTXT_id_pegawai_transaksi().setText(pilih_pegawai.getListPegawai().getValueAt(index, 1).toString());
+        this.pilih_pegawai.dispose();
     }
     
     public void show_item_in_form(int index){
@@ -105,7 +126,9 @@ public class Pegawai_Controller {
     public void show_data_to_table(){
         ArrayList<Pegawai> pegArr = getItemIndatabase();
         tbl_pegawai.setRowCount(0);
+        tbl_pegawai_choose.setRowCount(0);
         Object[] kolom = new Object[8];
+        Object[] kol = new Object[3];
         for (int i = 0; i < pegArr.size(); i++) {
             kolom[0] = i+1;
             kolom[1] = pegArr.get(i).getId_pegawai();
@@ -115,9 +138,17 @@ public class Pegawai_Controller {
             kolom[5] = pegArr.get(i).getAlamat();
             kolom[6] = pegArr.get(i).getKode_pos();
             kolom[7] = pegArr.get(i).getNo_telp();
-             
+            
             tbl_pegawai.addRow(kolom);
-         }
+        }
+        
+        for(int a=0; a<pegArr.size(); a++){
+            kol[0] = a+1;
+            kol[1] = pegArr.get(a).getId_pegawai();
+            kol[2] = pegArr.get(a).getNama_depan();
+            
+            tbl_pegawai_choose.addRow(kol);
+        }
     }
     
     public void insert_data_pegawai(){
@@ -159,8 +190,6 @@ public class Pegawai_Controller {
         } catch(SQLException e){
             System.out.println("Update unsuccessfully! " +e);
         }
-        
-        
     }
     
     public void delete_data_pegawai(){
@@ -206,9 +235,15 @@ public class Pegawai_Controller {
                 clear_form();
                 show_data_to_table();
             } else if(benda == frame.getBtnDeletePegawai()){
-                delete_data_pegawai();
-                show_data_to_table();
-                clear_form();
+                int result = JOptionPane.showConfirmDialog(null, 
+                    "Delete data??",null, JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.YES_OPTION) {
+                    delete_data_pegawai();
+                    show_data_to_table();
+                    clear_form();
+                } else{
+                    System.out.println("Abort!");
+                }
             }
         }
     }
@@ -266,6 +301,10 @@ public class Pegawai_Controller {
                 frame.getUpdateButton_Pegawai().setEnabled(true);
                 frame.getBtnDeletePegawai().setEnabled(true);
                 frame.getInsertButton_Pegawai().setEnabled(false);
+            } else if(benda == frame.getBtnChoosePegawai()){
+                show_data_to_table();
+                pilih_pegawai.setLocationRelativeTo(null);
+                pilih_pegawai.setVisible(true);
             }
         }
 

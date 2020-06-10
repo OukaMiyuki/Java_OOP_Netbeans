@@ -7,6 +7,7 @@ package Controller;
 
 import Database.Koneksi;
 import Model.Pemasok;
+import View.Choose_Pemasok;
 import View.Main_Form;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,21 +29,28 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Pemasok_Controller {
     private DefaultTableModel tb_pemasok;
+    private DefaultTableModel tb_pilih_pemasok;
     private Koneksi conn = new Koneksi();
     private Main_Form frame;
+    private Choose_Pemasok pilih_pemasok;
     private Pemasok pemasok;
     private int pos = 0;
     
-    public Pemasok_Controller(Main_Form frame, Pemasok pemasok){
+    public Pemasok_Controller(Choose_Pemasok pilih_pemasok, Main_Form frame, Pemasok pemasok){
+        this.pilih_pemasok = pilih_pemasok;
         this.frame = frame;
         this.pemasok = pemasok;
         this.tb_pemasok = (DefaultTableModel) frame.getTblPemasok().getModel();
+        this.tb_pilih_pemasok = (DefaultTableModel) pilih_pemasok.getListTb_Pemasok().getModel();
+        
         show_data_to_table();
         
         this.frame.getBtnInsert_Pemasok().addActionListener(new ManagementData());
         this.frame.getBtnUpdate_pemasok().addActionListener(new ManagementData());
         this.frame.getBtnDeletePemasok().addActionListener(new ManagementData());
         this.frame.getBtnResetPemasok().addActionListener(new ManagementData());
+        
+        this.frame.getBtn_Choose_Pemasok_produk().addActionListener(new ControlData());
         
         this.frame.getBtnFirst_Pemasok().addActionListener(new ControlData());
         this.frame.getBtnLast_Pemasok().addActionListener(new ControlData());
@@ -49,6 +60,12 @@ public class Pemasok_Controller {
         this.frame.getTblPemasok().addMouseListener(new java.awt.event.MouseAdapter(){
             public void mouseClicked(java.awt.event.MouseEvent evt){
                 tb_pemasok_clicked(evt);
+            }
+        });
+        
+        this.pilih_pemasok.getListTb_Pemasok().addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                tb_list_clicked(evt);
             }
         });
     }
@@ -68,6 +85,12 @@ public class Pemasok_Controller {
         this.frame.getTXT_alamat_pemasok().setText(frame.getTblPemasok().getValueAt(index, 3).toString());
         this.frame.getTXT_kode_pos_pemasok().setText(frame.getTblPemasok().getValueAt(index, 4).toString());
         this.frame.getTXT_no_telp_pemasok().setText(frame.getTblPemasok().getValueAt(index, 5).toString());
+    }
+    
+    public void tb_list_clicked(java.awt.event.MouseEvent evt){
+        int index = this.pilih_pemasok.getListTb_Pemasok().getSelectedRow();
+        this.frame.getTXT_pilih_pemasok().setText(pilih_pemasok.getListTb_Pemasok().getValueAt(index, 1).toString());
+        this.pilih_pemasok.dispose();
     }
     
     public ArrayList<Pemasok> getItemPemasokInDatabase(){
@@ -95,7 +118,9 @@ public class Pemasok_Controller {
     public void show_data_to_table(){
         ArrayList<Pemasok> pemArr = getItemPemasokInDatabase();
         tb_pemasok.setRowCount(0);
+        tb_pilih_pemasok.setRowCount(0);
         Object[] kolom = new Object[6];
+        Object[] kol_pemasok = new Object[3];
         for (int i = 0; i < pemArr.size(); i++) {
             kolom[0] = i+1;
             kolom[1] = pemArr.get(i).getId_pemasok();
@@ -103,9 +128,17 @@ public class Pemasok_Controller {
             kolom[3] = pemArr.get(i).getAlamat();
             kolom[4] = pemArr.get(i).getKode_pos();
             kolom[5] = pemArr.get(i).getNo_telp();
-             
+            
             tb_pemasok.addRow(kolom);
-         }
+        }
+        
+        for(int a=0; a<pemArr.size(); a++){
+            kol_pemasok[0] = a+1;
+            kol_pemasok[1] = pemArr.get(a).getId_pemasok();
+            kol_pemasok[2] = pemArr.get(a).getNama_perusahaan();
+            
+            tb_pilih_pemasok.addRow(kol_pemasok);
+        }
     }
     
     public void insert_data_pemasok(){
@@ -183,9 +216,15 @@ public class Pemasok_Controller {
                     clear_form();
                 }
             } else if(benda == frame.getBtnDeletePemasok()){
-                delete_data_pemasok();
-                show_data_to_table();
-                clear_form();
+                int result = JOptionPane.showConfirmDialog(null, 
+                    "Delete data??",null, JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.YES_OPTION) {
+                    delete_data_pemasok();
+                    show_data_to_table();
+                    clear_form();
+                } else{
+                    System.out.println("Abort!");
+                }
             } else if(benda == frame.getBtnResetPemasok()){
                 clear_form();
                 show_data_to_table();
@@ -246,6 +285,10 @@ public class Pemasok_Controller {
                 frame.getBtnUpdate_pemasok().setEnabled(true);
                 frame.getBtnDeletePemasok().setEnabled(true);
                 frame.getBtnInsert_Pemasok().setEnabled(false);
+            } else if(benda == frame.getBtn_Choose_Pemasok_produk()){
+                show_data_to_table();
+                pilih_pemasok.setLocationRelativeTo(null);
+                pilih_pemasok.setVisible(true);
             }
         }
         
