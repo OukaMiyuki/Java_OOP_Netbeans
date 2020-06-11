@@ -118,7 +118,7 @@ public class Produk_Controller {
     public void show_data_to_table(){
         ArrayList<Produk> proArr = getItemProdukIndatabase();
         tbl_produk.setRowCount(0);
-        tbl_produk_list.setRowCount(pos);
+        tbl_produk_list.setRowCount(0);
         Object[] kolom = new Object[7];
         Object[] kol = new Object[5];
         for (int i = 0; i < proArr.size(); i++) {

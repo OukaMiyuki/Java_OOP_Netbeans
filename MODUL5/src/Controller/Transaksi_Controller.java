@@ -11,6 +11,9 @@ import Model.Transaksi_Tbl;
 import View.Main_Form;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -34,10 +37,45 @@ public class Transaksi_Controller {
         this.tb_transaksi = (DefaultTableModel) frame.getTb_Transaksi().getModel();
         this.frame.getBtnTambah().addActionListener(new ManagementData());
         this.frame.getBtnEditTransaksiField().addActionListener(new ManagementData());
-        this.frame.getCekDiskon().addActionListener(new ManagementData());
+        this.frame.getBtnResetTransaksi().addActionListener(new SimpanResetData());
+        this.frame.getBtnSimpanTransaksi().addActionListener(new SimpanResetData());
+        
+        this.frame.getBayar().addCaretListener(new javax.swing.event.CaretListener(){
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                bayarCaret(evt);
+            }
+        });
+        
+        this.frame.getBayar().addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                bayarKeyPressed(evt);
+            }
+        });
     }
     
-   public ArrayList addtomodelTransaksi(){
+    public void bayarCaret(javax.swing.event.CaretEvent evt){
+        int total;
+	try{
+            int harga_total = Integer.parseInt(frame.getHargaTotalTransaksi().getText());
+            int bayar = Integer.parseInt(frame.getBayar().getText());
+            if(frame.getBayar().getText().isEmpty()){
+                total = 0;
+            } else{
+                total = bayar-harga_total;
+            }
+            frame.getKembalian().setText(Integer.toString(total));
+	} catch(NumberFormatException e){
+            System.out.print("error "+e);
+	}
+    }
+    
+     public void bayarKeyPressed(java.awt.event.KeyEvent evt){
+         if(frame.getBayar().getText().isEmpty()){
+             frame.getKembalian().setText("0");
+         }
+     }
+    
+    public ArrayList addtomodelTransaksi(){
         try{
             int id_transaksi = Integer.parseInt(frame.getTXT_id_transaksi().getText());
             int id_produk = Integer.parseInt(frame.getProduk_Transaksi().getText());
@@ -74,12 +112,6 @@ public class Transaksi_Controller {
                 }
                 tb_transaksi.addRow(rowData);
     }
-    
-//    private int diskon(){
-//        int harga_diskon = 0;
-//        int
-//        return harga_diskon;
-//    }
     
     class ManagementData implements ActionListener{
 
@@ -129,7 +161,7 @@ public class Transaksi_Controller {
                         frame.getBanyak_Beli_transaksi().setText("");
                         
                     }
-                    
+                    diskon();
                 }
             } else if(benda == frame.getBtnEditTransaksiField()){
                 frame.getTXT_id_transaksi().setEditable(true);
@@ -143,6 +175,134 @@ public class Transaksi_Controller {
             }
         }
         
+    }
+    
+    class SimpanResetData implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Object benda = e.getSource();
+            if(benda == frame.getBtnResetTransaksi()){
+                fieldsreset();
+            } if(benda == frame.getBtnSimpanTransaksi()){
+                insertData();
+                fieldsreset();
+            }
+        }
+        
+    }
+    
+    public void insertData(){
+        try{
+            Connection con = conn.getConnection();
+            PreparedStatement ps = con.prepareStatement("INSERT INTO transaksi(id_transaksi, id_pelanggan, nama_pelanggan, id_pegawai, id_kurir, tanggal_pengiriman, tanggal_pemesanan, alamat_pengiriman, kode_pos, no_telp, total_harga, diskon, bayar, kembalian)"
+                                                        +"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            ps.setInt(1, Integer.parseInt(frame.getTXT_id_transaksi().getText()));
+            ps.setInt(2, Integer.parseInt(frame.getTXT_id_pelanggan().getText()));
+            ps.setString(3, frame.getNama_pelanggan().getText());
+            ps.setInt(4, Integer.parseInt(frame.getTXT_id_pegawai_transaksi().getText()));
+            ps.setInt(5, Integer.parseInt(frame.getTXT_id_kurir_transaksi().getText()));
+            ps.setString(6, frame.getTXT_tgl_pengiriman());
+            ps.setString(7, frame.getTXT_tgl_pemesanan());
+            ps.setString(8, frame.getTXTAlamat_transaksi().getText());
+            ps.setString(9, frame.getTXTKode_Pos_transaksi().getText());
+            ps.setString(10, frame.getTXTNo_telp_transaksi().getText());
+            ps.setInt(11, Integer.parseInt(frame.getHargaTotalTransaksi().getText()));
+            ps.setInt(12, Integer.parseInt(frame.getHargaDiskon().getText()));
+            ps.setInt(13, Integer.parseInt(frame.getBayar().getText()));
+            ps.setInt(14, Integer.parseInt(frame.getKembalian().getText()));
+
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "data berhasil dimasukkan!");
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "data gagal dimasukkan! "+e);
+        }
+        try{
+            Connection con = conn.getConnection();
+            for(int i=0; i<frame.getTb_Transaksi().getRowCount(); i++){
+                PreparedStatement ps = con.prepareStatement("INSERT INTO detail_transaksi(id_transaksi, id_produk, nama_produk, harga_satuan, banyak_beli, total)"
+                                                   +"VALUES(?,?,?,?,?,?)");
+                ps.setInt(1, Integer.parseInt(frame.getTb_Transaksi().getValueAt(i, 0).toString()));
+                ps.setInt(2, Integer.parseInt(frame.getTb_Transaksi().getValueAt(i, 1).toString()));
+                ps.setString(3, frame.getTb_Transaksi().getValueAt(i, 2).toString());
+                ps.setInt(4, Integer.parseInt(frame.getTb_Transaksi().getValueAt(i, 3).toString()));
+                ps.setInt(5, Integer.parseInt(frame.getTb_Transaksi().getValueAt(i, 4).toString()));
+                ps.setInt(6, Integer.parseInt(frame.getTb_Transaksi().getValueAt(i, 5).toString()));
+                
+                ps.executeUpdate();
+                
+//                String UpdateQuery = "UPDATE pemasok SET NAMA_PERUSAHAAN = ?, ALAMAT = ?, KODE_POS = ?, NO_TELP = ? WHERE ID_PEMASOK = ?";
+//                PreparedStatementps = con.prepareStatement(UpdateQuery);
+            }
+            JOptionPane.showMessageDialog(null, "data berhasil dimasukkan!");
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "data gagal dimasukkan! "+e);
+        }
+        System.out.println("hai "+frame.getTb_Transaksi().getRowCount());
+    }
+    
+    public void fieldsreset(){
+        frame.getTXT_id_transaksi().setText("");
+        frame.getTXT_id_transaksi().setEditable(true);
+        frame.getTXT_id_pelanggan().setText("");
+        frame.getTXT_id_pelanggan().setEditable(true);
+        frame.getNama_pelanggan().setText("");
+        frame.getNama_pelanggan().setEditable(true);
+        frame.getTXT_id_pegawai_transaksi().setText("");
+        frame.getTXT_id_kurir_transaksi().setText("");
+        frame.getBtnChoosePegawai().setEnabled(true);
+        frame.getBtnChooseKurir().setEnabled(true);
+        frame.getTanggalPesan().setCalendar(null);
+        frame.getTanggalKirim().setCalendar(null);
+        frame.getTXTAlamat_transaksi().setText("");
+        frame.getTXTAlamat_transaksi().setEditable(true);
+        frame.getTXTKode_Pos_transaksi().setText("");
+        frame.getTXTKode_Pos_transaksi().setEditable(true);
+        frame.getTXTNo_telp_transaksi().setText("");
+        frame.getTXTNo_telp_transaksi().setEditable(true);
+        frame.getProduk_Transaksi().setText("");
+        frame.getBanyak_Beli_transaksi().setText("");
+        tb_transaksi.setRowCount(0);
+        frame.getHargaDiskon().setText("");
+        frame.getHargaTotalTransaksi().setText("");
+        frame.getBayar().setText("");
+        frame.getKembalian().setText("");
+        frame.setDiskon().setText("");
+    }
+    
+    public void diskon(){
+        double diskon;
+        int harga_diskon = 0;
+        int total_harga = Integer.parseInt(frame.getHargaTotalTransaksi().getText());
+        if(total_harga > 1000000){
+            frame.setDiskon().setText("30%");
+            diskon = 0.3;
+            harga_diskon = (int) (total_harga*diskon);
+            frame.getHargaDiskon().setText(Integer.toString(harga_diskon));
+        } else if(total_harga<1000000 && total_harga>=500000){
+            frame.setDiskon().setText("12%");
+            diskon = 0.12;
+            harga_diskon = (int) (total_harga*diskon);
+            frame.getHargaDiskon().setText(Integer.toString(harga_diskon));
+        } else if(total_harga<500000 && total_harga>=2000000){
+            frame.setDiskon().setText("7%");
+            diskon = 0.07;
+            harga_diskon = (int) (total_harga*diskon);
+            frame.getHargaDiskon().setText(Integer.toString(harga_diskon));
+        } else if(total_harga<200000 && total_harga>=100000){
+            frame.setDiskon().setText("3%");
+            diskon = 0.03;
+            harga_diskon = (int) (total_harga*diskon);
+            frame.getHargaDiskon().setText(Integer.toString(harga_diskon));
+         } else if(total_harga<100000 && total_harga>50000){
+            frame.setDiskon().setText("1%");
+            diskon = 0.01;
+            harga_diskon = (int) (total_harga*diskon);
+            frame.getHargaDiskon().setText(Integer.toString(harga_diskon));
+        } else{
+            frame.setDiskon().setText("0%");
+            frame.getHargaDiskon().setText(Integer.toString(harga_diskon));
+        }
     }
     
     public void adaIsi(int banyak){
