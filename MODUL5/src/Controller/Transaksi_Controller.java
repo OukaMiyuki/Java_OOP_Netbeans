@@ -13,7 +13,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -39,7 +41,6 @@ public class Transaksi_Controller {
         this.frame.getBtnEditTransaksiField().addActionListener(new ManagementData());
         this.frame.getBtnResetTransaksi().addActionListener(new SimpanResetData());
         this.frame.getBtnSimpanTransaksi().addActionListener(new SimpanResetData());
-        
         this.frame.getBayar().addCaretListener(new javax.swing.event.CaretListener(){
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 bayarCaret(evt);
@@ -69,11 +70,11 @@ public class Transaksi_Controller {
 	}
     }
     
-     public void bayarKeyPressed(java.awt.event.KeyEvent evt){
-         if(frame.getBayar().getText().isEmpty()){
-             frame.getKembalian().setText("0");
-         }
-     }
+    public void bayarKeyPressed(java.awt.event.KeyEvent evt){
+        if(frame.getBayar().getText().isEmpty()){
+            frame.getKembalian().setText("0");
+        }
+    }
     
     public ArrayList addtomodelTransaksi(){
         try{
@@ -97,20 +98,20 @@ public class Transaksi_Controller {
    
     public void storeToTBL(){
         ArrayList<Transaksi_Tbl> listBeli = addtomodelTransaksi();
-                Object rowData[] = new Object[7];
-                int banyak = Integer.parseInt(frame.getBanyak_Beli_transaksi().getText());
-                int stok = frame.getStok();
-                int sisa = stok-banyak;
-                for(int i=0;i<listBeli.size();i++){
-                    rowData[0] = listBeli.get(i).getId_transaksi();
-                    rowData[1] = listBeli.get(i).getId_produk();
-                    rowData[2] = listBeli.get(i).getNama_produk();
-                    rowData[3] = listBeli.get(i).getHarga_satuan();
-                    rowData[4] = listBeli.get(i).getBanyak_beli();
-                    rowData[5] = listBeli.get(i).getTotal();
-                    rowData[6] = sisa;
-                }
-                tb_transaksi.addRow(rowData);
+        Object rowData[] = new Object[7];
+        int banyak = Integer.parseInt(frame.getBanyak_Beli_transaksi().getText());
+        int stok = frame.getStok();
+        int sisa = stok-banyak;
+        for(int i=0;i<listBeli.size();i++){
+            rowData[0] = listBeli.get(i).getId_transaksi();
+            rowData[1] = listBeli.get(i).getId_produk();
+            rowData[2] = listBeli.get(i).getNama_produk();
+            rowData[3] = listBeli.get(i).getHarga_satuan();
+            rowData[4] = listBeli.get(i).getBanyak_beli();
+            rowData[5] = listBeli.get(i).getTotal();
+            rowData[6] = sisa;
+        }
+        tb_transaksi.addRow(rowData);
     }
     
     class ManagementData implements ActionListener{
@@ -174,7 +175,6 @@ public class Transaksi_Controller {
                 frame.getBtnChooseKurir().setEnabled(true);
             }
         }
-        
     }
     
     class SimpanResetData implements ActionListener{
@@ -185,17 +185,23 @@ public class Transaksi_Controller {
             if(benda == frame.getBtnResetTransaksi()){
                 fieldsreset();
             } if(benda == frame.getBtnSimpanTransaksi()){
-                insertData();
-                fieldsreset();
+                if(frame.getBayar().getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "One or more fields are empty!");
+                } else {
+                    insertData();
+                    fieldsreset();
+                }
             }
         }
         
     }
     
     public void insertData(){
+        String UpdateQuery;
+        PreparedStatement ps;
         try{
             Connection con = conn.getConnection();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO transaksi(id_transaksi, id_pelanggan, nama_pelanggan, id_pegawai, id_kurir, tanggal_pengiriman, tanggal_pemesanan, alamat_pengiriman, kode_pos, no_telp, total_harga, diskon, bayar, kembalian)"
+            ps = con.prepareStatement("INSERT INTO transaksi(id_transaksi, id_pelanggan, nama_pelanggan, id_pegawai, id_kurir, tanggal_pengiriman, tanggal_pemesanan, alamat_pengiriman, kode_pos, no_telp, total_harga, diskon, bayar, kembalian)"
                                                         +"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, Integer.parseInt(frame.getTXT_id_transaksi().getText()));
             ps.setInt(2, Integer.parseInt(frame.getTXT_id_pelanggan().getText()));
@@ -220,7 +226,7 @@ public class Transaksi_Controller {
         try{
             Connection con = conn.getConnection();
             for(int i=0; i<frame.getTb_Transaksi().getRowCount(); i++){
-                PreparedStatement ps = con.prepareStatement("INSERT INTO detail_transaksi(id_transaksi, id_produk, nama_produk, harga_satuan, banyak_beli, total)"
+                ps = con.prepareStatement("INSERT INTO detail_transaksi(id_transaksi, id_produk, nama_produk, harga_satuan, banyak_beli, total)"
                                                    +"VALUES(?,?,?,?,?,?)");
                 ps.setInt(1, Integer.parseInt(frame.getTb_Transaksi().getValueAt(i, 0).toString()));
                 ps.setInt(2, Integer.parseInt(frame.getTb_Transaksi().getValueAt(i, 1).toString()));
@@ -231,8 +237,12 @@ public class Transaksi_Controller {
                 
                 ps.executeUpdate();
                 
-//                String UpdateQuery = "UPDATE pemasok SET NAMA_PERUSAHAAN = ?, ALAMAT = ?, KODE_POS = ?, NO_TELP = ? WHERE ID_PEMASOK = ?";
-//                PreparedStatementps = con.prepareStatement(UpdateQuery);
+                UpdateQuery = "UPDATE produk SET stok_produk = ? WHERE id_produk = ?";
+                ps = con.prepareStatement(UpdateQuery);
+                ps.setInt(1, Integer.parseInt(frame.getTb_Transaksi().getValueAt(i, 6).toString()));
+                ps.setInt(2, Integer.parseInt(frame.getTb_Transaksi().getValueAt(i, 1).toString()));
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Data Updated!");
             }
             JOptionPane.showMessageDialog(null, "data berhasil dimasukkan!");
         } catch(SQLException e){

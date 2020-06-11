@@ -16,6 +16,7 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -52,6 +53,7 @@ public class Main_Form extends javax.swing.JFrame {
         TXT_diskon_transaksi.setEditable(false);
         TXT_total_harga_transaksi.setEditable(false);
         TXT_kembalian_transaksi.setEditable(false);
+        TXTarea_record.setEditable(false);
         JTextFieldDateEditor edTlpegawai = (JTextFieldDateEditor) txt_pegawai_tanggal_lahir.getDateEditor();
         edTlpegawai.setEditable(false);
         JTextFieldDateEditor tgl_pemesanan = (JTextFieldDateEditor) TXT_tgl_pemesanan.getDateEditor();
@@ -200,6 +202,19 @@ public class Main_Form extends javax.swing.JFrame {
         btn_last_kategori = new javax.swing.JButton();
         btn_next_kategori = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        Scrollrecord = new javax.swing.JScrollPane();
+        TB_Record_Transaksi = new javax.swing.JTable();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        TB_Record_Transaksi_detail = new javax.swing.JTable();
+        jPanel11 = new javax.swing.JPanel();
+        getBtnRefresh = new javax.swing.JButton();
+        btn_first_kategori1 = new javax.swing.JButton();
+        btn_prev_kategori1 = new javax.swing.JButton();
+        btn_next_kategori1 = new javax.swing.JButton();
+        btn_last_kategori1 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        TXTarea_record = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
@@ -1209,15 +1224,135 @@ public class Main_Form extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Kategori", jPanel9);
 
+        TB_Record_Transaksi.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "No.", "ID Transaksi", "ID Pelanggan", "Pelanggan", "Pemesanan", "Pengiriman", "Total Belanja"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Scrollrecord.setViewportView(TB_Record_Transaksi);
+
+        TB_Record_Transaksi_detail.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Produk", "Nama Produk", "Harga Satuan", "Banyak Beli", "Total per Produk"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane9.setViewportView(TB_Record_Transaksi_detail);
+
+        getBtnRefresh.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        getBtnRefresh.setText("Refresh");
+
+        btn_first_kategori1.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        btn_first_kategori1.setText("First");
+
+        btn_prev_kategori1.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        btn_prev_kategori1.setText("Prev");
+
+        btn_next_kategori1.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        btn_next_kategori1.setText("Next");
+
+        btn_last_kategori1.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        btn_last_kategori1.setText("Last");
+
+        btnDelete.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnDelete.setText("Delete");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
+                        .addComponent(btn_first_kategori1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_prev_kategori1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_next_kategori1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_last_kategori1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(267, 267, 267)
+                        .addComponent(getBtnRefresh)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDelete)))
+                .addContainerGap(160, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(getBtnRefresh)
+                    .addComponent(btnDelete))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_first_kategori1)
+                    .addComponent(btn_prev_kategori1)
+                    .addComponent(btn_next_kategori1)
+                    .addComponent(btn_last_kategori1))
+                .addGap(0, 88, Short.MAX_VALUE))
+        );
+
+        TXTarea_record.setColumns(20);
+        TXTarea_record.setRows(5);
+        jScrollPane7.setViewportView(TXTarea_record);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1348, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(Scrollrecord, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 568, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane7))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(Scrollrecord, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 38, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Record Penjualan", jPanel5);
@@ -2102,6 +2237,10 @@ public class Main_Form extends javax.swing.JFrame {
         return btnSimpanTransaksi;
     }
     
+    public JButton getBtnRefreshRecord(){
+        return getBtnRefresh;
+    }
+    
     public JTextField getTXT_id_transaksi(){
         return TXT_id_transaksi;
     }
@@ -2181,6 +2320,20 @@ public class Main_Form extends javax.swing.JFrame {
     public JDateChooser getTanggalKirim(){
         return TXT_tgl_pengiriman;
     }
+    
+    //transaksi record components
+    public JTable getTB_transaksi_record(){
+        return TB_Record_Transaksi;
+    }
+    
+    public JTable getTB_transaksi_record_detail(){
+        return TB_Record_Transaksi_detail;
+    }
+    
+    public JTextArea getTXTarea_record(){
+        return TXTarea_record;
+    }
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Choose_Pemasok;
     private javax.swing.JButton Btn_Chose_Kategori;
@@ -2188,6 +2341,9 @@ public class Main_Form extends javax.swing.JFrame {
     private javax.swing.JButton Btn_Last_Produk;
     private javax.swing.JButton Btn_Next_Produk;
     private javax.swing.JButton Btn_Prev_Produk;
+    private javax.swing.JScrollPane Scrollrecord;
+    private javax.swing.JTable TB_Record_Transaksi;
+    private javax.swing.JTable TB_Record_Transaksi_detail;
     private javax.swing.JTextField TXT_alamat_pemasok;
     private javax.swing.JTextField TXT_alamat_transaksi;
     private javax.swing.JTextField TXT_banyak_beli_transaksi;
@@ -2217,8 +2373,10 @@ public class Main_Form extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser TXT_tgl_pemesanan;
     private com.toedter.calendar.JDateChooser TXT_tgl_pengiriman;
     private javax.swing.JTextField TXT_total_harga_transaksi;
+    private javax.swing.JTextArea TXTarea_record;
     private javax.swing.JTable Tbl_Produk;
     private javax.swing.JTable Tbl_transaksi;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDeleteKurir;
     private javax.swing.JButton btnDeletePegawai;
     private javax.swing.JButton btnDeletePemasok;
@@ -2248,20 +2406,25 @@ public class Main_Form extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdatePemasok;
     private javax.swing.JButton btnUpdateProduk;
     private javax.swing.JButton btn_first_kategori;
+    private javax.swing.JButton btn_first_kategori1;
     private javax.swing.JButton btn_first_kurir;
     private javax.swing.JButton btn_first_pemasok;
     private javax.swing.JButton btn_insert_pegawai;
     private javax.swing.JButton btn_last_kategori;
+    private javax.swing.JButton btn_last_kategori1;
     private javax.swing.JButton btn_last_kurir;
     private javax.swing.JButton btn_last_pemasok;
     private javax.swing.JButton btn_next_kategori;
+    private javax.swing.JButton btn_next_kategori1;
     private javax.swing.JButton btn_next_kurir;
     private javax.swing.JButton btn_next_pemasok;
     private javax.swing.JButton btn_prev_kategori;
+    private javax.swing.JButton btn_prev_kategori1;
     private javax.swing.JButton btn_prev_kurir;
     private javax.swing.JButton btn_prev_pemasok;
     private javax.swing.JButton btn_reset_field_pegawai;
     private javax.swing.JButton btn_update_pegawai;
+    private javax.swing.JButton getBtnRefresh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2344,6 +2507,7 @@ public class Main_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -2358,6 +2522,8 @@ public class Main_Form extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblDiskon;
     private javax.swing.JTable tb_pemasok;

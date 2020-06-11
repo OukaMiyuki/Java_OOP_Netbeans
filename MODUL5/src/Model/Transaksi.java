@@ -18,7 +18,7 @@ public class Transaksi {
     private String tanggal_pemesanan;
     private String tanggal_pengiriman;
     private String alamat;
-    private int kode_pos;
+    private String kode_pos;
     private String no_telp;
     private int total_harga;
     private float diskon;
@@ -26,7 +26,7 @@ public class Transaksi {
     private int kembalian;
     
     public void setTransaksi(int id_transaksi, int id_pelanggan, String nama_pelanggan, int id_pegawai, int id_kurir, String tanggal_pemesanan, 
-            String tanggal_pengiriman, String alamat, int kode_pos, String no_telp, int total_harga, float diskon, int bayar, int kembalian)
+            String tanggal_pengiriman, String alamat, String kode_pos, String no_telp, int total_harga, float diskon, int bayar, int kembalian)
     {
        this.id_transaksi = id_transaksi;
        this.id_pelanggan = id_pelanggan;
@@ -76,7 +76,7 @@ public class Transaksi {
         return alamat;
     }
 
-    public int getKode_pos() {
+    public String getKode_pos() {
         return kode_pos;
     }
 

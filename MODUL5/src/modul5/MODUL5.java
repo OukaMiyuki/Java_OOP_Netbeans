@@ -10,6 +10,7 @@ import Controller.Pegawai_Controller;
 import Controller.Pemasok_Controller;
 import Controller.Kategori_Controller;
 import Controller.Produk_Controller;
+import Controller.Record_Controller;
 import Controller.Transaksi_Controller;
 import Database.Koneksi;
 import Model.Kategori;
@@ -58,6 +59,8 @@ public class MODUL5 {
         Produk_Controller controller_produk = new Produk_Controller(form, produk, pilih_produk);
         Transaksi transaksi = new Transaksi();
         Transaksi_Controller controller_transaksi = new Transaksi_Controller(form, transaksi);
+        Transaksi transaksi1 = new Transaksi();
+        Record_Controller controller_transaksi_record = new Record_Controller(form, transaksi1);
     }
     
 }
